@@ -1,0 +1,32 @@
+.rec{
+    width: 65%;
+    height: 250px;
+    background: rgba(40,40,40,0.7);
+    text-align: center;
+    margin: 200px auto;
+}
+
+.rec-space{
+    width: 10px;
+    height: 10px;
+}
+
+.rec-in{
+    font-size: 50px;
+    margin-top: 35px;
+    color: white;
+}
+
+.button{
+    margin-top: 45px;
+    text-align: center
+}
+
+#btn{
+    background-color: rgba(0,0,0,0.3);
+}
+
+#btn-font{
+    color: white;
+    font-size: 20px;
+}

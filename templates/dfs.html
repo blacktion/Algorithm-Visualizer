@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>可视化算法平台</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/dfs.css')}}">
+    <script src="{{ url_for('static',filename='layui/layui.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
+</script>
+</head>
+<body ondragstart="return false;" ondrop="return false;">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo"><a href="{{url_for('go_index')}}"><img src="{{url_for('static',filename='img/logo.png')}}" height="90%"></a></div>
+                <!-- 头部区域（可配合layui 已有的水平导航） -->
+                <ul class="layui-nav layui-layout-left">
+                    <li class="layui-nav-item"><a href="{{url_for('go_algo')}}">算法演示</a></li>
+                    <li class="layui-nav-item"><a href="http://114.55.167.188/">社区论坛</a></li>
+                    <li class="layui-nav-item"><a href="http://49.234.79.176">Online Judge</a></li>
+                </ul>
+                <ul class="layui-nav layui-layout-right">
+                    {% if g.user %}
+                        <li class="layui-nav-item">
+                            <a href="{{url_for('self_index')}}">
+                                <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                                {{ g.user.username }}
+                            </a>
+                        </li>
+                        <li class="layui-nav-item"><a href="{{url_for('logout')}}">退出登录</a></li>
+                    {% else %}
+                        <li class="layui-nav-item"><a href="{{url_for('login')}}">登录/注册</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+              <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                    <li class="layui-nav-item"><a href="{{url_for('go_algo')}}">概览</a></li>
+                    <li class="layui-nav-item">
+<!--                        class=layui-nav-itemed-->
+                        <a href="javascript:;">基础语法</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{url_for('for_loop')}}">for循环</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item  layui-nav-itemed">
+                        <a href="javascript:;">搜索算法</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="{{url_for('dfs')}}">dfs深度优先搜索</a></dd>
+                            <dd><a href="{{url_for('bfs')}}">bfs广度优先搜索</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body">
+            <div class="layui-row">
+                <div class="layui-col-md7" style="min-height:500px;font-size:25px;border-style: double;">
+                    <div class="layui-col-md9" id="canvas"></div>
+                    <div class="layui-col-md3" id="buttons">
+                        <div class="btn">
+                            <label>迷宫高：</label><input type="textbox" id="source2" value=""></input><br>
+                        </div>
+                        <div class="btn">
+                            <label>迷宫长：</label><input type="textbox" id="source1" value=""></input><br>
+                        </div>
+
+                        <div class="btn">
+                            <button class="button blue bigrounded" onclick="make_maze()">生&nbsp;成</button><br>
+                        </div>
+
+                        <div class="btn">
+                            <button class="button blue bigrounded" onclick="DFS()">运&nbsp;行</button><br>
+                        </div>
+
+                        <div class="btn">
+                            <button class="button blue bigrounded" onclick="CleanCanvas()">清&nbsp;除</button><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md5" style="min-height:500px;font-size:25px;border-style: double;">
+
+                    <div class="rec-space" style="width=10px;height=50px;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    <div id="code1">&nbsp;&nbsp;&nbsp;&nbsp;int next[4][2]=&#123;{-1,0},{0,1},{1,0},{0,-1}&#125;;</div>
+                    <br>
+                    <div id="code2">&nbsp;&nbsp;&nbsp;&nbsp;void dfs(int x,int y){</div>
+                    <div id="code3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(x<0 || y<0 || x>=n || y>=m) return;</div>
+                    <div id="code4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(flag[x][y]==true || maze[x][y]=='#') return;</div>
+                    <div id="code5">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(x==edx && y==edy){</div>
+                    <div id="code6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;"finish!"&lt;&lt;endl;</div>
+                    <div id="code7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;exit(0);</div>
+                    <div id="code8">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                    <div id="code9">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int i=0;i<4;i++){</div>
+                    <div id="code10">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dfs(x+next[i][0],y+next[i][1]);</div>
+                    <div id="code11">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                    <div id="code12">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+
+                </div>
+                <div class="layui-col-md12">
+                    <div id="explain" style="border-style: double;border-style: groove;text-align:center;font-size:50px;">
+                        语句解释
+                    </div>
+                </div>
+
+                <div class="layui-col-md6" style="font-size:20px;border-right:2px solid grey;">
+                    <br>
+                    <div style="text-align:center;font-size:40px;">小讲解：</div>
+                    <div class="layui-col-md1">&nbsp;</div>
+                    <div class="layui-col-md11">
+                        <br>
+                        <p>深度优先遍历图的方法是，从图中某顶点v出发：</p>
+                        <p>（1）访问顶点v；</p>
+                        <p>（2）依次从v的未被访问的邻接点出发，对图进行深度优先遍历；直至图中和v有路径相通的顶点都被访问；</p>
+                        <p>（3）若此时图中尚有顶点未被访问，则从一个未被访问的顶点出发，重新进行深度优先遍历，直到图中所有顶点均被访问过为止。</p>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-col-md1">&nbsp;</div>
+                    <div class="layui-col-md11">
+                        <div class="layui-col-md12">
+                            <br>
+                            <p style="font-size:40px;text-align:center;">训练题目：</p>
+                            <br>
+                        </div>
+                        <div class="layui-col-md7">
+                            <a href="http://49.234.79.176/problem/1071" style="font-size:20px;color:blue;"><p>救救甘雨</p></a>
+                            <a href="http://49.234.79.176/problem/1063" style="font-size:20px;color:blue;"><p>(水)芭芭拉)</p></a>
+                        </div>
+                        <div class="layui-col-md5">
+                            <p style="font-size:20px;">难度等级：简单</p>
+                            <p style="font-size:20px;">难度等级：简单</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{ url_for('static',filename='js/basic/dfs.js')}}"></script>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>可视化算法平台</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css')}}">
+    <script src="{{ url_for('static',filename='layui/layui.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
+</head>
+<body background="static/img/bgp.png" style="max-width:100%;background-size:cover;">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo"><a href="{{url_for('go_index')}}"><img src="{{url_for('static',filename='img/logo.png')}}" height="90%"></a></div>
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="{{url_for('go_algo')}}">算法演示</a></li>
+                <li class="layui-nav-item"><a href="http://114.55.167.188/">社区论坛</a></li>
+                <li class="layui-nav-item"><a href="http://49.234.79.176">Online Judge</a></li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                {% if g.user %}
+                    <li class="layui-nav-item">
+                        <a href="{{url_for('self_index')}}">
+                            <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                            {{ g.user.username }}
+                        </a>
+                    </li>
+                    <li class="layui-nav-item"><a href="{{url_for('logout')}}">退出登录</a></li>
+                {% else %}
+                    <li class="layui-nav-item"><a href="{{url_for('login')}}">登录/注册</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="rec">
+        <div class="rec-space"></div>
+        <div class="rec-in">
+            <h4>可&nbsp;&nbsp;视&nbsp;&nbsp;化&nbsp;&nbsp;算&nbsp;&nbsp;法&nbsp;&nbsp;平&nbsp;&nbsp;台</h4>
+        </div>
+        <div class="button">
+            <a class="layui-btn layui-btn-primary layui-border-blue" href="{{url_for('go_algo')}}" id="btn"><p id="btn-font">点&nbsp;击&nbsp;进&nbsp;入</p></a>
+        </div>
+
+    </div>
+</body>
+</html>

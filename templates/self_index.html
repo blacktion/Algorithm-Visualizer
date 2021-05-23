@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>可视化算法平台</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/self_index.css')}}">
+    <script src="{{ url_for('static',filename='layui/layui.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
+
+</head>
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo"><a href="{{url_for('go_index')}}"><img src="{{url_for('static',filename='img/logo.png')}}" height="90%"></a></div>
+                <!-- 头部区域（可配合layui 已有的水平导航） -->
+                <ul class="layui-nav layui-layout-left">
+                    <li class="layui-nav-item"><a href="{{url_for('go_algo')}}">算法演示</a></li>
+                    <li class="layui-nav-item"><a href="http://114.55.167.188/">社区论坛</a></li>
+                    <li class="layui-nav-item"><a href="http://49.234.79.176">Online Judge</a></li>
+                </ul>
+                <ul class="layui-nav layui-layout-right">
+                    {% if g.user %}
+                        <li class="layui-nav-item">
+                            <a href="{{url_for('self_index')}}">
+                                <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
+                                {{ g.user.username }}
+                            </a>
+                        </li>
+                        <li class="layui-nav-item"><a href="{{url_for('logout')}}">退出登录</a></li>
+                    {% else %}
+                        <li class="layui-nav-item"><a href="{{url_for('login')}}">登录/注册</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+              <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree">
+                    <li class="layui-nav-item"><a href="{{url_for('self_index')}}">个人资料</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body" style="font-size:25px;">
+        <!-- 内容主体区域 -->
+            <div class="layui-row">
+                <div class="rec-space-2">&nbsp;</div>
+
+
+
+
+                <div class="layui-col-md2">&nbsp;</div>
+                <div class="layui-col-md8">
+                    <div class = "coding">
+                        <h1>Welcome to use</h1>
+                    </div>
+                    {% if g.user %}
+                    <p style="text-align:center;font-size:40px;">欢迎：{{g.user.username}}</p>
+                    <p style="text-align:center;font-size:40px;">用户编号 ： # {{g.user.id}}</p>
+                    {% else %}
+                    <p style="text-align:center;font-size:40px;">登陆错误！</p>
+                    {% endif %}
+                </div>
+                <div class="layui-col-md2">&nbsp;</div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

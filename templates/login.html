@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='layui/css/layui.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/login.css')}}">
+    <script src="{{ url_for('static',filename='layui/layui.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/jquery-3.6.0.min.js')}}"></script>
+</head>
+<body>
+
+    <div class="wrap">
+        <img src="{{url_for('static',filename='img/bgp.PNG')}}" class="imgStyle">
+        <div class="loginForm">
+            <form action="#" method="POST">
+                <div class="logoHead">
+                    <h2>用&nbsp;户&nbsp;登&nbsp;录&nbsp;</h2>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>用户名:</label>
+                    </div>
+                    <div class="usernameDiv">
+                        <i class="layui-icon layui-icon-username adminIcon"></i>
+                        <input id="loginUsername" class="layui-input adminInput" type="text" name="username" placeholder="输入用户名" >
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="usernameLabel">
+                        <label>密码:</label>
+                    </div>
+                    <div class="passwordDiv">
+                        <i class="layui-icon layui-icon-password adminIcon"></i>
+                        <input id="loginPassword" class="layui-input adminInput" type="password" name="password" placeholder="输入密码">
+                    </div>
+                </div>
+                <div class="usernameWrapDiv">
+                    <div class="submitDiv">
+                        <button class="submit">
+                            登录
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
